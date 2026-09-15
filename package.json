@@ -1,0 +1,28 @@
+{
+  "name": "tech-catchup-articles",
+  "version": "1.0.0",
+  "scripts": {
+    "preview": "zenn preview",
+    "validate": "node scripts/validate-articles.mjs",
+    "zenn:check": "zenn list:articles"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaryCache/tech-catchup-articles.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MaryCache/tech-catchup-articles/issues"
+  },
+  "homepage": "https://github.com/MaryCache/tech-catchup-articles#readme",
+  "description": "Daily tech catch-up articles managed as Markdown and published through Zenn GitHub integration.",
+  "devDependencies": {
+    "yaml": "^2.9.1",
+    "zenn-cli": "^0.5.4"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}
