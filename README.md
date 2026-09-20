@@ -1,8 +1,8 @@
 # tech-catchup-articles
 
-ChatGPT の `/tech-catchup daily` が毎日生成する技術キャッチアップ記事を Markdown で蓄積し、Zenn 公式の GitHub 連携を通して公開するためのリポジトリ。
+ChatGPT の `/tech-catchup daily` が毎日収集する技術キャッチアップをGitHubへ蓄積し、Zenn公式GitHub連携で週刊記事として公開するためのリポジトリ。
 
-記事生成・ニュース収集・LLM 呼び出しはこのリポジトリでは行わない。ここでは `articles/` の保管、静的検証、Zenn CLI による確認だけを扱う。
+記事生成・ニュース収集・LLM呼び出しはこのリポジトリでは行わない。ここでは日次アーカイブ、Zenn公開用週刊記事、静的検証、Zenn CLIによる確認を扱う。
 
 ## 全体構成
 
@@ -11,68 +11,80 @@ ChatGPT Automation
         ↓
 /tech-catchup daily
         ↓
-Markdown生成
+曜日別テーマで調査
         ↓
-GitHub / articles/*.md
+archive/YYYYMMDD-<category>-catchup.md
+（日次の原本・Zenn対象外）
+        ↓
+articles/YYYYMMDD-weekly-tech-catchup.md
+（日曜〜土曜の1記事を毎日更新）
         ↓
 Zenn公式GitHub連携
         ↓
-published: true の記事を公開
+週1本の記事として公開
 ```
 
 ## 曜日別カテゴリ
 
 | 曜日 | カテゴリ | slug |
 | --- | --- | --- |
-| 日 | 生成AI・AI開発 | `ai-development` |
+| 日 | 生成AI・AI開発 | `ai-dev` |
 | 月 | IT全般・週間総括 | `it-weekly` |
 | 火 | 開発ツール・OSS | `devtools-oss` |
-| 水 | Web・バックエンド | `web-backend` |
+| 水 | Web・バックエンド開発 | `web-backend` |
 | 木 | セキュリティ | `security` |
-| 金 | クラウド・インフラ・DevOps | `cloud-infra-devops` |
-| 土 | 先端技術・論文→実用 | `emerging-tech` |
+| 金 | クラウド・インフラ・DevOps | `cloud-devops` |
+| 土 | 先端技術・論文→実用 | `research-tech` |
 
-## 記事ファイル
+週刊記事は日曜日始まり・土曜日終わり。
 
-記事は次の命名規則で `articles/` 直下に置く。
+## 日次アーカイブ
+
+毎日の調査結果は次の形式で保存する。
 
 ```text
-articles/YYYYMMDD-<category>-catchup.md
+archive/YYYYMMDD-<category>-catchup.md
 ```
+
+`archive/` はZennの公開対象外。採用0件の日も含めて、調査履歴をGitHubへ残す。
+
+## Zenn公開用週刊記事
+
+Zennへ公開するのは週1本。
+
+```text
+articles/YYYYMMDD-weekly-tech-catchup.md
+```
+
+先頭の日付は、その週の日曜日。
 
 例:
 
 ```text
-articles/20260915-devtools-oss-catchup.md
+articles/20260920-weekly-tech-catchup.md
 ```
 
-Zenn CLI 0.5.4 では記事 slug は `a-z0-9`、`-`、`_` の12〜50文字。日次記事では運用を単純にするため、小文字英数字とハイフンだけを使う。
+同じ週は毎日このファイルを更新し、その日の曜日セクションだけを追加・置換する。
 
-## Front Matter
-
-日次記事では次の形式を使う。
+Front Matter例:
 
 ```yaml
 ---
-title: "2026-09-15 開発ツール・OSS 技術キャッチアップ"
-emoji: "🛠️"
+title: "2026-09-20〜2026-09-26 技術キャッチアップ"
+emoji: "🧭"
 type: "tech"
-topics:
-  - github
-  - oss
-  - vscode
-  - devtools
+topics: ["tech", "engineering", "ai", "security", "oss"]
 published: true
 ---
 ```
 
-`type` は Zenn の仕様に合わせて `tech` または `idea`。日次記事では原則 `tech` を使う。
+週の最初の実行が0件の場合は `published: false`。後日、公開価値のある項目が追加された時点で、その週刊記事を `published: true` に切り替える。
 
-ニュースが0件だった日も記事ファイルは残し、`published: false` として調査記録を保持する。
+## 既存の日次記事
+
+週刊方式へ移行する前に `articles/YYYYMMDD-<category>-catchup.md` として作成された記事は履歴として保持する。新規のdaily実行では、この旧形式を追加しない。
 
 ## セットアップ
-
-Zenn CLI 0.5.4 の実行には Node.js 22.12.0 以上が必要。
 
 ```bash
 npm ci
@@ -84,38 +96,25 @@ npm ci
 npm run preview
 ```
 
-Zenn CLI のプレビューサーバーが起動する。終了するときは `Ctrl+C`。
-
 ## 検証
-
-独自の静的検証:
 
 ```bash
 npm run validate
-```
-
-Zenn CLI に記事を読み込ませる確認:
-
-```bash
 npm run zenn:check
 ```
 
-`npm run validate` では、Front Matter の必須項目・型、ファイル名、Zenn slug 長、公開記事の本文・見出し・出典URL、明らかに不正な外部URLを確認する。
-
-GitHub Actions でも `main` への push と pull request のたびに `npm ci`、`npm run validate`、`npm run zenn:check` を実行する。
+GitHub Actionsでも `main` へのpushとpull requestのたびに検証を実行する。
 
 ## Zennとの接続
 
-公開には Zenn 公式の GitHub 連携を使う。独自の投稿 API や投稿用 GitHub Actions は使わない。
+公開にはZenn公式のGitHub連携を使う。独自の投稿APIや投稿用GitHub Actionsは使わない。
 
-初回だけ、Zenn 側で次の手動設定が必要。
+- repository: `MaryCache/tech-catchup-articles`
+- branch: `main`
+- Zenn公開対象: `articles/*.md`
+- 日次原本: `archive/*.md`
 
-1. Zenn にログインする。
-2. Zenn の GitHub 連携画面を開き、`MaryCache/tech-catchup-articles` を連携する。
-3. 同期対象ブランチを `main` に設定する。
-4. `articles/20260915-zenn-connection-test.md` が非公開記事として認識されることを確認する。
-
-以後は `main` に push された `articles/*.md` が Zenn 側へ同期される。
+`books/` はZennの標準ディレクトリ構造に合わせて空ディレクトリ用ファイルを保持する。
 
 ## 公開制御
 
@@ -129,4 +128,4 @@ published: true
 published: false
 ```
 
-非公開。ニュース0件の日や連携テストも削除せず、この状態で履歴として残す。
+非公開。週の初回が0件の場合などに使用する。
