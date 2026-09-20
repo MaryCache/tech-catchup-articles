@@ -3,7 +3,7 @@ title: "2026-09-20 生成AI・AI開発 技術キャッチアップ"
 emoji: "🤖"
 type: "tech"
 topics: ["ai", "githubcopilot", "gemini", "llm", "devtools"]
-published: true
+published: false
 ---
 
 # 2026-09-20 生成AI・AI開発 技術キャッチアップ
