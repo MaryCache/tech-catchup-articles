@@ -206,7 +206,18 @@ published: true
 <!-- daily:2026-09-25:start -->
 ## 9月25日（金）— クラウド・インフラ・DevOps
 
-### 1. Docker Cloud Sandboxesが公開
+### 1. GitHub Enterprise Cloudでself-hosted runnerの最低バージョン要件を全面適用
+
+- **重要度:** 高
+- **対象:** GitHub Enterprise Cloudでself-hosted runnerを運用する組織
+- **要点:** GitHubは2026年9月25日から、self-hosted runnerのバージョン要件を全面適用する。新規登録・再登録には2.329.0以上が必要で、実行中のrunnerも各リリースから30日以内に更新し続ける必要がある。
+- **業務への影響:** 要件を満たさないrunnerは登録できず、既存runnerもジョブを受け取れなくなる可能性がある。自動更新を無効化している環境や、古いVM・コンテナイメージからrunnerを展開している環境は確認が必要。
+- **対応:** 今すぐ確認
+
+**出典**
+- [GitHub Changelog](https://github.blog/changelog/2026-06-12-github-actions-minimum-version-enforcement-timeline-for-self-hosted-runners/)
+
+### 2. Docker Cloud Sandboxesが公開
 
 - **重要度:** 中
 - **対象:** AIコーディングエージェントを長時間・隔離環境で動かす開発チーム
@@ -218,7 +229,7 @@ published: true
 - [Docker: Introducing Cloud Sandboxes](https://www.docker.com/blog/introducing-cloud-sandboxes-start-on-your-laptop-finish-in-the-cloud/)
 - [Docker Docs: Docker Sandboxes](https://docs.docker.com/ai/sandboxes/)
 
-### 2. GitHub ActionsからNode.js 20ランタイムが削除
+### 3. GitHub ActionsからNode.js 20ランタイムが削除
 
 - **重要度:** 高
 - **対象:** GitHub ActionsのJavaScript Action利用者・Action作者、self-hosted runner運用者
@@ -229,7 +240,7 @@ published: true
 **出典**
 - [GitHub Changelog: Node 20 is no longer available in GitHub Actions](https://github.blog/changelog/2026-09-23-node-20-is-no-longer-available-in-github-actions/)
 
-### 3. AlloyDBがAIエージェント向けの分離された読み取り基盤をPreview公開
+### 4. AlloyDBがAIエージェント向けの分離された読み取り基盤をPreview公開
 
 - **重要度:** 中
 - **対象:** Google Cloud上でAIエージェントから本番PostgreSQLデータを参照するシステムを設計するチーム
@@ -243,6 +254,6 @@ published: true
 
 ### この日のまとめ
 
-本日は、AIエージェントを既存の開発・運用基盤へ安全に組み込むための隔離実行環境が2件公開された。Docker Cloud Sandboxesはコード実行環境、AlloyDBはデータベース負荷の分離を扱う。一方、GitHub ActionsではNode.js 20の削除が完了しており、古いJavaScript Actionやself-hosted runnerを利用する環境は対応状況の確認が必要である。
+GitHub Enterprise Cloudではself-hosted runnerの最低バージョン要件が本日から全面適用されたため、対象組織ではrunnerの更新状況を優先して確認する必要がある。あわせて、GitHub ActionsのNode.js 20削除への対応も必要となる。Docker Cloud SandboxesとAlloyDBの新機能は、AIエージェントのコード実行とデータ参照を本番環境から分離する選択肢として試験導入候補となる。
 
 <!-- daily:2026-09-25:end -->
