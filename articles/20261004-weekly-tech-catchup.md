@@ -78,3 +78,30 @@ published: true
 - [AWS News Blog](https://aws.amazon.com/blogs/aws/category/news/launch/)
 
 <!-- daily:2026-10-05:end -->
+
+<!-- daily:2026-10-08:start -->
+## 10月8日（木）— セキュリティ
+
+### 1. GitHubが漏えいシークレット検出専用モデルを導入
+
+- **重要度:** 中
+- **対象:** GitHub Secret Protection / GitHub Advanced Security利用組織、Copilot利用者
+- **要点:** 周辺コードの文脈から認証情報を識別する専用モデルが導入された。既存のAI-detected Password alertsは新モデルへ自動移行し、AI push protectionとCopilot security reviewへの展開も予定されている。
+- **業務への影響:** 固定形式を持たない認証情報を検出できる範囲が広がる。追加機能の一部は今後AI Creditsを消費する予定である。
+- **対応:** 今週中に確認
+
+**出典**
+- [GitHub Changelog](https://github.blog/changelog/2026-10-07-purpose-built-model-for-leaked-secret-detection/)
+
+### 2. GitHub CopilotのローカルサンドボックスがGA
+
+- **重要度:** 中
+- **対象:** GitHub Copilot CLI、Copilot app、VS Code Agent Host利用者
+- **要点:** GitHub Copilotのローカルサンドボックスが一般提供になった。エージェントが実行するコマンドやファイル操作を隔離された環境内で扱える。
+- **業務への影響:** AIエージェントへローカル操作を許可する際、ホスト環境へ直接変更を加えるリスクを抑えやすくなる。
+- **対応:** 試験導入候補
+
+**出典**
+- [GitHub Changelog](https://github.blog/changelog/2026-10-07-local-sandboxing-for-github-copilot-now-generally-available/)
+
+<!-- daily:2026-10-08:end -->
